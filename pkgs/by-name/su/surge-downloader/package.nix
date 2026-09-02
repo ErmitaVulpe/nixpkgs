@@ -17,6 +17,11 @@ buildGoModule (finalAttrs: {
     hash = "sha256-cUJwt4gRdlQvMnrEvYG7JZe/2oz4cN9k35TEur13Sks=";
   };
 
+  patches = [
+    ./rename-dirs.patch
+    ./rename-service.patch
+  ];
+
   vendorHash = "sha256-Ei2i7dQ9s42Gg6f2iLABbTG7OQspjHoRnqIhkfcNvFo=";
 
   subPackages = [ "." ];
@@ -43,7 +48,13 @@ buildGoModule (finalAttrs: {
     versionCheckHook
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru = {
+    services.default = {
+      imports = [ (lib.modules.importApply ./service.nix { }) ];
+      surge-downloader.package = lib.mkDefault finalAttrs.finalPackage;
+    };
+    updateScript = nix-update-script { };
+  };
 
   __structuredAttrs = true;
 

@@ -1,0 +1,64 @@
+diff --git a/internal/config/paths.go b/internal/config/paths.go
+index f487bfd..ff9d034 100644
+--- a/internal/config/paths.go
++++ b/internal/config/paths.go
+@@ -32,7 +32,7 @@ func GetSurgeDir() string {
+ 			}
+ 		}
+ 	}
+-	return filepath.Join(getXDGBaseDir("XDG_CONFIG_HOME", xdg.ConfigHome), "surge")
++	return filepath.Join(getXDGBaseDir("XDG_CONFIG_HOME", xdg.ConfigHome), "surge-downloader")
+ }
+ 
+ func GetStateDir() string {
+@@ -40,7 +40,7 @@ func GetStateDir() string {
+ 	if runtime.GOOS == "windows" {
+ 		return GetSurgeDir()
+ 	}
+-	return filepath.Join(getXDGBaseDir("XDG_STATE_HOME", xdg.StateHome), "surge")
++	return filepath.Join(getXDGBaseDir("XDG_STATE_HOME", xdg.StateHome), "surge-downloader")
+ }
+ 
+ func GetSystemSurgeDir() string {
+@@ -54,9 +54,9 @@ func GetSystemSurgeDir() string {
+ 
+ 	rootUser, err := user.Lookup("root")
+ 	if err == nil && strings.TrimSpace(rootUser.HomeDir) != "" {
+-		return filepath.Join(rootUser.HomeDir, ".config", "surge")
++		return filepath.Join(rootUser.HomeDir, ".config", "surge-downloader")
+ 	}
+-	return filepath.Join(string(filepath.Separator), "root", ".config", "surge")
++	return filepath.Join(string(filepath.Separator), "root", ".config", "surge-downloader")
+ }
+ 
+ func GetSystemStateDir() string {
+@@ -74,9 +74,9 @@ func GetSystemStateDir() string {
+ 
+ 	rootUser, err := user.Lookup("root")
+ 	if err == nil && strings.TrimSpace(rootUser.HomeDir) != "" {
+-		return filepath.Join(rootUser.HomeDir, ".local", "state", "surge")
++		return filepath.Join(rootUser.HomeDir, ".local", "state", "surge-downloader")
+ 	}
+-	return filepath.Join(string(filepath.Separator), "root", ".local", "state", "surge")
++	return filepath.Join(string(filepath.Separator), "root", ".local", "state", "surge-downloader")
+ }
+ 
+ func GetSystemRuntimeDir() string {
+@@ -91,7 +91,7 @@ func GetSystemRuntimeDir() string {
+ 	// used by nginx, postgresql, etc.  This allows non-root users to auto-detect
+ 	// a system-service Surge daemon without needing read access to /root.
+ 	if runtime.GOOS == "linux" {
+-		return filepath.Join(string(filepath.Separator), "run", "surge")
++		return filepath.Join(string(filepath.Separator), "run", "surge-downloader")
+ 	}
+ 	return filepath.Join(GetSystemStateDir(), "runtime")
+ }
+@@ -141,7 +141,7 @@ func GetRuntimeDir() string {
+ 		return filepath.Join(GetStateDir(), "runtime")
+ 	}
+ 
+-	return filepath.Join(runtimeBase, "surge")
++	return filepath.Join(runtimeBase, "surge-downloader")
+ }
+ 
+ func GetDocumentsDir() string {

@@ -1,0 +1,13 @@
+diff --git a/cmd/service_kardianos.go b/cmd/service_kardianos.go
+index bab4433..8071e13 100644
+--- a/cmd/service_kardianos.go
++++ b/cmd/service_kardianos.go
+@@ -13,7 +13,7 @@ import (
+ )
+ 
+ var serviceConfig = &service.Config{
+-	Name:        "surge",
++	Name:        "surge-downloader",
+ 	DisplayName: "Surge Download Manager",
+ 	Description: "Blazing fast TUI download manager built in Go.",
+ 	Arguments:   []string{"service", "__run"},
